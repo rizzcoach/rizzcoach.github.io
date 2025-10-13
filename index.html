@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rizz Coach AI</title>
+  <title>Rizz Coach AI 💬</title>
   <style>
     body {
       margin: 0;
@@ -60,14 +60,8 @@
     }
 
     @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     #input-area {
@@ -118,11 +112,10 @@
     <input id="userInput" type="text" placeholder="Type your message..." />
     <button onclick="sendMessage()">Send</button>
   </div>
-  <footer>✨ Let’s make your messages smooth, respectful & confident ✨</footer>
+  <footer>✨ Learn smooth, confident, and respectful communication ✨</footer>
 
   <script>
-    const API_KEY = "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";
-    const API_URL = "https://api.deepseek.com/chat/completions";
+    const WORKER_URL = "https://winter-queen-1c66.octohog321.workers.dev/";
 
     const chatContainer = document.getElementById("chat-container");
     const userInput = document.getElementById("userInput");
@@ -134,44 +127,31 @@
       addMessage("user", message);
       userInput.value = "";
 
-      // show typing
-      const typingElement = addMessage("ai", "💭 typing...");
+      const typingEl = addMessage("ai", "💭 typing...");
 
       const payload = {
-        model: "deepseek-chat",  // this is DeepSeek’s chat mode (non-thinking) :contentReference[oaicite:1]{index=1}
+        model: "deepseek-chat",
         messages: [
-          {
-            role: "system",
-            content:
-              "You are Rizz Coach AI — a confident, funny, respectful dating coach. Give flirty but classy, genuine advice. Never crude or disrespectful."
-          },
-          {
-            role: "user",
-            content: message
-          }
+          { role: "system", content: "You are Rizz Coach AI — a confident, charming, funny but respectful mentor who helps users improve social skills and communication." },
+          { role: "user", content: message }
         ]
       };
 
       try {
-        const response = await fetch(API_URL, {
+        const res = await fetch(WORKER_URL, {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${API_KEY}`
-          },
-          body: JSON.stringify(payload)
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
         });
 
-        const data = await response.json();
-        // DeepSeek’s API returns similar structure: choices[].message.content
-        const reply = data.choices?.[0]?.message?.content ?? "Oops, something went wrong.";
+        const data = await res.json();
+        typingEl.remove();
 
-        // replace the “typing” bubble
-        typingElement.remove();
+        const reply = data.choices?.[0]?.message?.content ?? "Hmm... something went wrong.";
         addMessage("ai", reply);
       } catch (err) {
-        typingElement.remove();
-        addMessage("ai", `❌ Error: ${err.message}`);
+        typingEl.remove();
+        addMessage("ai", "❌ Error: " + err.message);
       }
     }
 
@@ -185,9 +165,7 @@
     }
 
     userInput.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") {
-        sendMessage();
-      }
+      if (e.key === "Enter") sendMessage();
     });
   </script>
 </body>
