@@ -120,22 +120,32 @@
     const chatContainer = document.getElementById("chat-container");
     const userInput = document.getElementById("userInput");
 
-    async function sendMessage() {
-      const message = userInput.value.trim();
-      if (!message) return;
+    async function sendMessage(userInput) {
+  const response = await fetch(WORKER_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      model: "deepseek-chat",
+      messages: [
+        { role: "user", content: userInput }
+      ]
+    })
+  });
 
-      addMessage("user", message);
-      userInput.value = "";
+  const data = await response.json();
+  console.log(data);
 
-      const typingEl = addMessage("ai", "💭 typing...");
+  if (data.error) {
+    alert("AI Error: " + data.error);
+    return;
+  }
 
-      const payload = {
-        model: "deepseek-chat",
-        messages: [
-          { role: "system", content: "You are Rizz Coach AI — a confident, charming, funny but respectful mentor who helps users improve social skills and communication." },
-          { role: "user", content: message }
-        ]
-      };
+  const aiMessage = data.choices[0].message.content;
+  displayMessage(aiMessage, "ai");
+}
+
 
       try {
         const res = await fetch(WORKER_URL, {
