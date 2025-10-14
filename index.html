@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rizz Coach AI 💬</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: "Poppins", sans-serif;
+      background: radial-gradient(circle at top left, #2c2c54, #1e1e2f);
+      color: #fff;
+      overflow: hidden;
+      text-align: center;
+      animation: fadeIn 1.5s ease;
+    }
+    @keyframes fadeIn { from {opacity:0;transform:scale(0.95);} to {opacity:1;transform:scale(1);} }
+
+    /* Navbar */
+    nav {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(6px);
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 15px 0;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 8px 20px;
+      border-radius: 20px;
+      transition: 0.3s;
+    }
+    nav a:hover {
+      background: linear-gradient(90deg, #ff79c6, #8be9fd);
+      color: #000;
+    }
+
+    h1 {
+      font-size: 3em;
+      color: #ff79c6;
+      text-shadow: 0 0 15px #ff79c6, 0 0 30px rgba(255,121,198,0.4);
+      animation: pulse 3s infinite ease-in-out;
+    }
+    @keyframes pulse {
+      0%,100% {text-shadow:0 0 15px #ff79c6,0 0 30px rgba(255,121,198,0.4);}
+      50% {text-shadow:0 0 30px #ff92d0,0 0 60px rgba(255,146,208,0.6);}
+    }
+
+    p {
+      font-size: 1.2em;
+      max-width: 500px;
+      color: #ccc;
+      margin-top: 20px;
+      line-height: 1.6;
+      opacity: 0;
+      animation: slideUp 1.5s ease forwards;
+      animation-delay: 0.5s;
+    }
+    @keyframes slideUp {
+      from {transform:translateY(20px);opacity:0;}
+      to {transform:translateY(0);opacity:1;}
+    }
+
+    a.button {
+      display: inline-block;
+      margin-top: 40px;
+      padding: 15px 35px;
+      background: linear-gradient(90deg, #ff79c6, #8be9fd);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 30px;
+      font-weight: bold;
+      font-size: 1.1em;
+      box-shadow: 0 0 15px rgba(255,121,198,0.6);
+      transition: all 0.3s ease;
+      animation: fadeInBtn 2s ease forwards;
+      animation-delay: 1.2s;
+      opacity: 0;
+    }
+    @keyframes fadeInBtn {
+      from {opacity:0;transform:translateY(20px);}
+      to {opacity:1;transform:translateY(0);}
+    }
+    a.button:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 25px rgba(255,121,198,0.9), 0 0 50px rgba(139,233,253,0.6);
+    }
+
+    .emoji {
+      position: absolute;
+      font-size: 2em;
+      opacity: 0.3;
+      animation: float 10s linear infinite;
+    }
+    @keyframes float {
+      from {transform:translateY(100vh) rotate(0deg);opacity:0;}
+      10% {opacity:0.4;}
+      90% {opacity:0.4;}
+      to {transform:translateY(-10vh) rotate(360deg);opacity:0;}
+    }
+
+    footer {
+      position: absolute;
+      bottom: 20px;
+      font-size: 0.9em;
+      color: #aaa;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="rizz.html">Chat</a>
+  </nav>
+
+  <h1>💬 Rizz Coach AI</h1>
+  <p>Get smooth, confident, and respectful communication tips — instantly.<br>
+  Your personal AI coach is just one click away.</p>
+  <a href="rizz.html" class="button">Start Chatting 💬</a>
+  <footer>✨ Powered by OpenRouter • Built by You ✨</footer>
+
+  <script>
+    const emojis = ["💬", "🔥", "✨", "😎", "💖", "💭"];
+    for (let i = 0; i < 10; i++) {
+      const emoji = document.createElement("div");
+      emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      emoji.classList.add("emoji");
+      emoji.style.left = Math.random() * 100 + "vw";
+      emoji.style.animationDuration = 8 + Math.random() * 5 + "s";
+      emoji.style.fontSize = 1.5 + Math.random() * 1.5 + "em";
+      document.body.appendChild(emoji);
+    }
+  </script>
+</body>
+</html>
