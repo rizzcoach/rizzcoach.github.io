@@ -15,14 +15,12 @@
       align-items: center;
       height: 100vh;
     }
-
     h1 {
       margin: 20px 0;
       color: #ff79c6;
       font-size: 2em;
       text-shadow: 0 0 8px #ff79c6;
     }
-
     #chat-container {
       flex: 1;
       width: 90%;
@@ -33,7 +31,6 @@
       overflow-y: auto;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     }
-
     .message {
       max-width: 75%;
       margin: 10px 0;
@@ -42,7 +39,6 @@
       line-height: 1.4;
       animation: fadeIn 0.3s ease;
     }
-
     .user {
       background: #50fa7b;
       color: #000;
@@ -50,7 +46,6 @@
       border-bottom-right-radius: 4px;
       margin-left: auto;
     }
-
     .ai {
       background: #8be9fd;
       color: #000;
@@ -58,12 +53,10 @@
       border-bottom-left-radius: 4px;
       margin-right: auto;
     }
-
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
     #input-area {
       display: flex;
       justify-content: center;
@@ -71,7 +64,6 @@
       max-width: 600px;
       margin: 15px 0 25px 0;
     }
-
     input {
       flex: 1;
       padding: 12px 15px;
@@ -80,7 +72,6 @@
       outline: none;
       font-size: 1em;
     }
-
     button {
       background: #ff79c6;
       border: none;
@@ -92,12 +83,10 @@
       font-weight: bold;
       transition: 0.2s;
     }
-
     button:hover {
       background: #ff92d0;
       transform: scale(1.05);
     }
-
     footer {
       font-size: 0.8em;
       color: #bbb;
@@ -115,68 +104,72 @@
   <footer>✨ Learn smooth, confident, and respectful communication ✨</footer>
 
   <script>
-    const WORKER_URL = "https://winter-queen-1c66.octohog321.workers.dev/";
+  const WORKER_URL = "https://winter-queen-1c66.octohog321.workers.dev/";
+  const chatContainer = document.getElementById("chat-container");
+  const userInput = document.getElementById("userInput");
 
-    const chatContainer = document.getElementById("chat-container");
-    const userInput = document.getElementById("userInput");
+  async function sendMessage() {
+    const message = userInput.value.trim();
+    if (!message) return;
 
-    async function sendMessage(userInput) {
-  const response = await fetch(WORKER_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
+    addMessage("user", message);
+    userInput.value = "";
+
+    const typingEl = addMessage("ai", "💭 typing...");
+
+    const payload = {
       model: "deepseek-chat",
       messages: [
-        { role: "user", content: userInput }
+        { role: "system", content: "You are Rizz Coach AI — confident, funny, respectful, and helpful with communication advice." },
+        { role: "user", content: message }
       ]
-    })
-  });
+    };
 
-  const data = await response.json();
-  console.log(data);
+    try {
+      const res = await fetch(WORKER_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
 
-  if (data.error) {
-    alert("AI Error: " + data.error);
-    return;
+      const text = await res.text();
+      typingEl.remove();
+
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch (e) {
+        addMessage("ai", "❌ Invalid response from server:\n" + text);
+        return;
+      }
+
+      if (data.error) {
+        const msg = typeof data.error === "string" ? data.error : JSON.stringify(data.error, null, 2);
+        addMessage("ai", "⚠️ Server Error:\n" + msg);
+        return;
+      }
+
+      const reply = data.choices?.[0]?.message?.content ?? "Hmm... something went wrong.";
+      addMessage("ai", reply);
+    } catch (err) {
+      typingEl.remove();
+      addMessage("ai", "❌ Network Error: " + err.message);
+    }
   }
 
-  const aiMessage = data.choices[0].message.content;
-  displayMessage(aiMessage, "ai");
-}
+  function addMessage(sender, text) {
+    const msg = document.createElement("div");
+    msg.classList.add("message", sender);
+    msg.textContent = text;
+    chatContainer.appendChild(msg);
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+    return msg;
+  }
 
+  userInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") sendMessage();
+  });
+</script>
 
-      try {
-        const res = await fetch(WORKER_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        });
-
-        const data = await res.json();
-        typingEl.remove();
-
-        const reply = data.choices?.[0]?.message?.content ?? "Hmm... something went wrong.";
-        addMessage("ai", reply);
-      } catch (err) {
-        typingEl.remove();
-        addMessage("ai", "❌ Error: " + err.message);
-      }
-    }
-
-    function addMessage(sender, text) {
-      const msg = document.createElement("div");
-      msg.classList.add("message", sender);
-      msg.textContent = text;
-      chatContainer.appendChild(msg);
-      chatContainer.scrollTop = chatContainer.scrollHeight;
-      return msg;
-    }
-
-    userInput.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") sendMessage();
-    });
-  </script>
 </body>
 </html>
