@@ -5,6 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rizz Coach AI 💬</title>
   <style>
+    nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(6px);
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 15px 0;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  z-index: 10;
+}
+nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 8px 20px;
+  border-radius: 20px;
+  transition: 0.3s;
+}
+nav a:hover {
+  background: linear-gradient(90deg, #ff79c6, #8be9fd);
+  color: #000;
+}
     body {
       margin: 0;
       background: linear-gradient(135deg, #1e1e2f, #2c2c54);
@@ -95,6 +120,10 @@
   </style>
 </head>
 <body>
+  <nav>
+  <a href="index.html">Home</a>
+  <a href="rizz.html">Chat</a>
+</nav>
   <h1>💬 Rizz Coach AI</h1>
   <div id="chat-container"></div>
   <div id="input-area">
