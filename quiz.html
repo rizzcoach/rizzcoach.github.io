@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Confidence Quiz 💪 | Rizz Coach AI</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #1e1e2f, #2c2c54);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(6px);
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 15px 0;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      z-index: 10;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 8px 20px;
+      border-radius: 20px;
+      transition: 0.3s;
+    }
+    nav a:hover {
+      background: linear-gradient(90deg, #ff79c6, #8be9fd);
+      color: #000;
+    }
+
+    main {
+      margin-top: 120px;
+      text-align: center;
+      width: 90%;
+      max-width: 600px;
+    }
+
+    h1 {
+      color: #ff79c6;
+      text-shadow: 0 0 8px #ff79c6;
+      font-size: 2em;
+    }
+
+    .question {
+      margin-top: 40px;
+      font-size: 1.3em;
+    }
+
+    .options {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    button.option {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: 0.3s;
+    }
+    button.option:hover {
+      background: linear-gradient(90deg, #ff79c6, #8be9fd);
+      color: #000;
+      transform: scale(1.05);
+    }
+
+    #result {
+      margin-top: 50px;
+      font-size: 1.5em;
+      display: none;
+    }
+
+    #restart {
+      margin-top: 30px;
+      background: #50fa7b;
+      color: #000;
+      border: none;
+      border-radius: 25px;
+      padding: 12px 25px;
+      font-weight: bold;
+      cursor: pointer;
+      display: none;
+      transition: 0.3s;
+    }
+    #restart:hover {
+      background: #69ff96;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="rizz.html">Chat</a>
+    <a href="quiz.html">Quiz</a>
+  </nav>
+
+  <main>
+    <h1>💪 Confidence Quiz</h1>
+    <div id="quiz-container">
+      <div id="question" class="question"></div>
+      <div id="options" class="options"></div>
+    </div>
+    <div id="result"></div>
+    <button id="restart" onclick="restartQuiz()">Restart Quiz</button>
+  </main>
+
+  <script>
+    const quizData = [
+      {
+        question: "You see someone you like — what do you do?",
+        options: [
+          { text: "Wait for them to notice me 😳", score: 1 },
+          { text: "Make confident eye contact 👀", score: 3 },
+          { text: "Walk up and start a convo 😎", score: 5 }
+        ]
+      },
+      {
+        question: "They compliment you. You say...",
+        options: [
+          { text: "\"Thanks... you too!\" 😊", score: 3 },
+          { text: "\"Of course, I’m pretty awesome.\" 😏", score: 4 },
+          { text: "\"Appreciate that — you’ve got good taste.\" 😉", score: 5 }
+        ]
+      },
+      {
+        question: "Someone teases you — how do you react?",
+        options: [
+          { text: "Get embarrassed 🥲", score: 1 },
+          { text: "Laugh it off 😄", score: 4 },
+          { text: "Playfully tease them back 😏", score: 5 }
+        ]
+      },
+      {
+        question: "Your friend introduces you to your crush. You...",
+        options: [
+          { text: "Get shy and quiet 😶", score: 1 },
+          { text: "Smile and say hi 👋", score: 3 },
+          { text: "Charm both of them 😎", score: 5 }
+        ]
+      },
+      {
+        question: "When you text someone new, you...",
+        options: [
+          { text: "Overthink every message 💭", score: 1 },
+          { text: "Keep it chill and funny 😏", score: 4 },
+          { text: "Let them text first 👀", score: 2 }
+        ]
+      }
+    ];
+
+    let current = 0;
+    let score = 0;
+
+    function loadQuestion() {
+      const q = quizData[current];
+      document.getElementById("question").textContent = q.question;
+      const optionsEl = document.getElementById("options");
+      optionsEl.innerHTML = "";
+      q.options.forEach(opt => {
+        const btn = document.createElement("button");
+        btn.textContent = opt.text;
+        btn.classList.add("option");
+        btn.onclick = () => selectOption(opt.score);
+        optionsEl.appendChild(btn);
+      });
+    }
+
+    function selectOption(points) {
+      score += points;
+      current++;
+      if (current < quizData.length) {
+        loadQuestion();
+      } else {
+        showResult();
+      }
+    }
+
+    function showResult() {
+      document.getElementById("quiz-container").style.display = "none";
+      const resultEl = document.getElementById("result");
+      const restartBtn = document.getElementById("restart");
+
+      let resultText = "";
+      if (score <= 10) {
+        resultText = "😅 You're a 'Shy Charmer' — potential’s there, just need practice!";
+      } else if (score <= 18) {
+        resultText = "😎 'Cool Conversationalist' — smooth but keeps it real.";
+      } else {
+        resultText = "🔥 'Ultimate Rizz Master' — charisma levels are off the charts!";
+      }
+
+      resultEl.textContent = resultText;
+      resultEl.style.display = "block";
+      restartBtn.style.display = "inline-block";
+    }
+
+    function restartQuiz() {
+      score = 0;
+      current = 0;
+      document.getElementById("result").style.display = "none";
+      document.getElementById("restart").style.display = "none";
+      document.getElementById("quiz-container").style.display = "block";
+      loadQuestion();
+    }
+
+    loadQuestion();
+  </script>
+</body>
+</html>
