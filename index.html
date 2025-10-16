@@ -73,9 +73,15 @@
       to {transform:translateY(0);opacity:1;}
     }
 
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+    }
+
     a.button {
       display: inline-block;
-      margin-top: 40px;
       padding: 15px 35px;
       background: linear-gradient(90deg, #ff79c6, #8be9fd);
       color: #fff;
@@ -86,7 +92,6 @@
       box-shadow: 0 0 15px rgba(255,121,198,0.6);
       transition: all 0.3s ease;
       animation: fadeInBtn 2s ease forwards;
-      animation-delay: 1.2s;
       opacity: 0;
     }
     @keyframes fadeInBtn {
@@ -124,12 +129,18 @@
   <nav>
     <a href="index.html">Home</a>
     <a href="rizz.html">Chat</a>
+    <a href="quiz.html">Quiz</a>
   </nav>
 
   <h1>💬 Rizz Coach AI</h1>
   <p>Get smooth, confident, and respectful communication tips — instantly.<br>
   Your personal AI coach is just one click away. (get baddie 101)</p>
-  <a href="rizz.html" class="button">Start Chatting 💬</a>
+
+  <div class="button-container">
+    <a href="rizz.html" class="button">Start Chatting 💬</a>
+    <a href="quiz.html" class="button">Take the Quiz 🧠</a>
+  </div>
+
   <footer>✨ Powered by OpenRouter • Built by You ✨</footer>
 
   <script>
