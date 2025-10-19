@@ -4,60 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rizz Coach AI 💬</title>
-	<!-- ✅ Responsive Adsterra 320x50 Banner -->
-<div id="adsterra-banner">
-  <script type="text/javascript">
-    atOptions = {
-      'key' : '39aade1a98d6598c6e4af92726d6115f',
-      'format' : 'iframe',
-      'height' : 50,
-      'width' : 320,
-      'params' : {}
-    };
-  </script>
-  <script type="text/javascript" src="https://www.highperformanceformat.com/39aade1a98d6598c6e4af92726d6115f/invoke.js"></script>
-</div>
-
-<style>
-  /* Responsive wrapper */
-  #adsterra-banner {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    max-width: 320px;
-    margin: 15px auto;
-    overflow: auto;
-  }
-
-  /* Scale properly on phones */
-  @media (max-width: 480px) {
-    #adsterra-banner {
-      max-width: 100%;
-      height: auto;
-    }
-    #adsterra-banner iframe {
-      width: 100% !important;
-      height: auto !important;
-    }
-  }
-
-  /* Looks better on desktops */
-  @media (min-width: 768px) {
-    #adsterra-banner {
-      max-width: 728px;
-    }
-    #adsterra-banner iframe {
-      width: 728px !important;
-      height: 90px !important;
-    }
-  }
-</style>
 
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -66,16 +17,19 @@
       background: radial-gradient(circle at top left, #2c2c54, #1e1e2f);
       color: #fff;
       overflow-x: hidden;
-	  overflow-y: auto;
+      overflow-y: auto;
       text-align: center;
       animation: fadeIn 1.5s ease;
+      padding: 80px 20px 100px;
     }
     @keyframes fadeIn { from {opacity:0;transform:scale(0.95);} to {opacity:1;transform:scale(1);} }
 
     /* Navbar */
     nav {
-      position: absolute;
+      position: fixed;
       top: 0;
+      left: 0;
+      right: 0;
       width: 100%;
       background: rgba(255, 255, 255, 0.05);
       backdrop-filter: blur(6px);
@@ -84,6 +38,7 @@
       gap: 20px;
       padding: 15px 0;
       box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      z-index: 1000;
     }
     nav a {
       color: #fff;
@@ -103,6 +58,7 @@
       color: #ff79c6;
       text-shadow: 0 0 15px #ff79c6, 0 0 30px rgba(255,121,198,0.4);
       animation: pulse 3s infinite ease-in-out;
+      margin-bottom: 10px;
     }
     @keyframes pulse {
       0%,100% {text-shadow:0 0 15px #ff79c6,0 0 30px rgba(255,121,198,0.4);}
@@ -124,11 +80,41 @@
       to {transform:translateY(0);opacity:1;}
     }
 
+    /* Ad Container Styling */
+    #adsterra-banner {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      max-width: 320px;
+      min-height: 50px;
+      margin: 25px auto;
+      overflow: visible;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 10px;
+      padding: 5px;
+    }
+
+    @media (max-width: 480px) {
+      #adsterra-banner {
+        max-width: 100%;
+        height: auto;
+      }
+    }
+
+    @media (min-width: 768px) {
+      #adsterra-banner {
+        max-width: 728px;
+        min-height: 90px;
+      }
+    }
+
     .button-container {
       display: flex;
       flex-direction: column;
       gap: 20px;
       align-items: center;
+      margin-top: 30px;
     }
 
     a.button {
@@ -155,10 +141,12 @@
     }
 
     .emoji {
-      position: absolute;
+      position: fixed;
       font-size: 2em;
       opacity: 0.3;
       animation: float 10s linear infinite;
+      pointer-events: none;
+      z-index: 1;
     }
     @keyframes float {
       from {transform:translateY(100vh) rotate(0deg);opacity:0;}
@@ -168,11 +156,26 @@
     }
 
     footer {
-      position: absolute;
+      position: fixed;
       bottom: 20px;
+      left: 0;
+      right: 0;
       font-size: 0.9em;
       color: #aaa;
       opacity: 0.8;
+    }
+
+    /* Debug message for iOS */
+    .debug-msg {
+      font-size: 0.85em;
+      color: #8be9fd;
+      margin-top: 10px;
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 2.2em; }
+      p { font-size: 1em; padding: 0 15px; }
     }
   </style>
 </head>
@@ -187,6 +190,21 @@
   <p>Get smooth, confident, and respectful communication tips — instantly.<br>
   Your personal AI coach is just one click away. (get baddie 101)</p>
 
+  <!-- ✅ Adsterra Banner - Optimized placement -->
+  <div id="adsterra-banner">
+    <script type="text/javascript">
+      atOptions = {
+        'key' : '39aade1a98d6598c6e4af92726d6115f',
+        'format' : 'iframe',
+        'height' : 50,
+        'width' : 320,
+        'params' : {}
+      };
+    </script>
+    <script type="text/javascript" src="https://www.highperformanceformat.com/39aade1a98d6598c6e4af92726d6115f/invoke.js"></script>
+  </div>
+  <div class="debug-msg" id="ad-debug">Ad script status: <span id="ad-status">Loading...</span></div>
+
   <div class="button-container">
     <a href="chat.html" class="button">Start Chatting 💬</a>
     <a href="quiz.html" class="button">Take the Quiz 🧠</a>
@@ -195,6 +213,7 @@
   <footer>✨ Powered by OpenRouter • Built for You ✨</footer>
 
   <script>
+    // Floating emoji animation
     const emojis = ["💬", "🔥", "✨", "😎", "💖", "💭"];
     for (let i = 0; i < 10; i++) {
       const emoji = document.createElement("div");
@@ -205,6 +224,27 @@
       emoji.style.fontSize = 1.5 + Math.random() * 1.5 + "em";
       document.body.appendChild(emoji);
     }
+
+    // Debug: Check if ad script loads (helpful for iOS testing)
+    setTimeout(() => {
+      const debugEl = document.getElementById('ad-debug');
+      const statusEl = document.getElementById('ad-status');
+      
+      if (typeof atOptions !== 'undefined') {
+        statusEl.textContent = 'Script loaded ✓';
+        statusEl.style.color = '#50fa7b';
+      } else {
+        statusEl.textContent = 'Blocked by browser ✗';
+        statusEl.style.color = '#ff5555';
+        debugEl.style.display = 'block';
+      }
+      
+      // Check if iframe was created
+      const hasIframe = document.querySelector('#adsterra-banner iframe');
+      if (!hasIframe && typeof atOptions !== 'undefined') {
+        statusEl.textContent = 'Script loaded but no ad displayed';
+      }
+    }, 2000);
   </script>
 </body>
 </html>
