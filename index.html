@@ -165,38 +165,42 @@
 		'params' : {}
 	};
 </script>
-<script type="text/javascript">
-	atOptions = {
-		'key' : '94872582c84e63affd6308e8dd53e53f',
-		'format' : 'iframe',
-		'height' : 90,
-		'width' : 728,
-		'params' : {}
-	};
-</script>
-<div style="
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  max-width: 100%;
-  overflow: hidden;
-  margin: 20px auto;
-">
-  <div style="width: 100%; max-width: 728px;">
-    <script type="text/javascript" src="//www.highperformanceformat.com/94872582c84e63affd6308e8dd53e53f/invoke.js"></script>
-  </div>
+<!-- Responsive Adsterra Banner -->
+<div id="ad-container">
+  <script type="text/javascript">
+    atOptions = {
+      'key': '94872582c84e63affd6308e8dd53e53f',
+      'format': 'iframe',
+      'height': 90,
+      'width': 728,
+      'params': {}
+    };
+  </script>
+  <script type="text/javascript" src="//www.highperformanceformat.com/94872582c84e63affd6308e8dd53e53f/invoke.js"></script>
 </div>
 
 <style>
-@media (max-width: 768px) {
-  /* Shrinks for mobile */
-  div[style*="highperformanceformat"] iframe,
-  div[style*="highperformanceformat"] {
-    width: 100% !important;
-    height: auto !important;
+  #ad-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 728px;
+    margin: 20px auto;
+    overflow: visible;
   }
-}
+
+  /* Make ad responsive on phones */
+  @media (max-width: 768px) {
+    #ad-container {
+      max-width: 100%;
+      padding: 0 10px;
+    }
+    #ad-container iframe {
+      width: 100% !important;
+      height: 50px !important; /* Fits mobile screens */
+    }
+  }
 </style>
 
 </body>
