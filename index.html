@@ -156,52 +156,56 @@
       document.body.appendChild(emoji);
     }
   </script>
-  <script type="text/javascript">
-	atOptions = {
-		'key' : '94872582c84e63affd6308e8dd53e53f',
-		'format' : 'iframe',
-		'height' : 90,
-		'width' : 728,
-		'params' : {}
-	};
-</script>
-<!-- Responsive Adsterra Banner -->
-<div id="ad-container">
+  <!-- ✅ Responsive Adsterra 320x50 Banner -->
+<div id="adsterra-banner">
   <script type="text/javascript">
     atOptions = {
-      'key': '94872582c84e63affd6308e8dd53e53f',
-      'format': 'iframe',
-      'height': 90,
-      'width': 728,
-      'params': {}
+      'key' : '39aade1a98d6598c6e4af92726d6115f',
+      'format' : 'iframe',
+      'height' : 50,
+      'width' : 320,
+      'params' : {}
     };
   </script>
-  <script type="text/javascript" src="//www.highperformanceformat.com/94872582c84e63affd6308e8dd53e53f/invoke.js"></script>
+  <script type="text/javascript" src="//www.highperformanceformat.com/39aade1a98d6598c6e4af92726d6115f/invoke.js"></script>
 </div>
 
 <style>
-  #ad-container {
+  /* Responsive wrapper */
+  #adsterra-banner {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    max-width: 728px;
-    margin: 20px auto;
-    overflow: visible;
+    max-width: 320px;
+    margin: 15px auto;
+    overflow: hidden;
   }
 
-  /* Make ad responsive on phones */
-  @media (max-width: 768px) {
-    #ad-container {
+  /* Scale properly on phones */
+  @media (max-width: 480px) {
+    #adsterra-banner {
       max-width: 100%;
-      padding: 0 10px;
+      height: auto;
     }
-    #ad-container iframe {
+    #adsterra-banner iframe {
       width: 100% !important;
-      height: 50px !important; /* Fits mobile screens */
+      height: auto !important;
+    }
+  }
+
+  /* Looks better on desktops */
+  @media (min-width: 768px) {
+    #adsterra-banner {
+      max-width: 728px;
+    }
+    #adsterra-banner iframe {
+      width: 728px !important;
+      height: 90px !important;
     }
   }
 </style>
+
 
 </body>
 </html>
