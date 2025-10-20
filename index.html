@@ -224,27 +224,6 @@
       emoji.style.fontSize = 1.5 + Math.random() * 1.5 + "em";
       document.body.appendChild(emoji);
     }
-
-    // Debug: Check if ad script loads (helpful for iOS testing)
-    setTimeout(() => {
-      const debugEl = document.getElementById('ad-debug');
-      const statusEl = document.getElementById('ad-status');
-      
-      if (typeof atOptions !== 'undefined') {
-        statusEl.textContent = 'Script loaded ✓';
-        statusEl.style.color = '#50fa7b';
-      } else {
-        statusEl.textContent = 'Blocked by browser ✗';
-        statusEl.style.color = '#ff5555';
-        debugEl.style.display = 'block';
-      }
-      
-      // Check if iframe was created
-      const hasIframe = document.querySelector('#adsterra-banner iframe');
-      if (!hasIframe && typeof atOptions !== 'undefined') {
-        statusEl.textContent = 'Script loaded but no ad displayed';
-      }
-    }, 2000);
   </script>
 </body>
 </html>
